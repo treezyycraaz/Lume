@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 function Login() {
   const [loaded, setLoaded] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
 
   useEffect(() => {
     // анимация загрузки особенностей
@@ -22,12 +23,36 @@ function Login() {
               </p>
             </h1>
 
+          {
+            isLogin
+            ?
+            <div className="flex">
             <label className="text-[#AAAAAA] text-sm">Email</label>
+            <div className="border-s ml-3 pl-3 border-[#363636]" />
+            <button type="button" className="text-[#AAAAAA] text-sm hover:text-yellow-400 transition-colors duration-200" onClick={() => {setIsLogin(false)}}>Войти по username</button>
+            </div>
+            :
+            <div className="flex">
+            <label className="text-[#AAAAAA] text-sm">Username</label>
+            <div className="border-s ml-3 pl-3 border-[#363636]" />
+            <button type="button" className="text-[#AAAAAA] text-sm hover:text-yellow-400 transition-colors duration-200" onClick={() => {setIsLogin(true)}}>Войти по Email</button>
+            </div>
+          }
+
+          {isLogin
+            ?
             <input
               className="mb-8 mt-2 w-full h-12 px-5 rounded-lg border border-[#404040] bg-[#232323] focus:outline-none focus:border-[#FFFFFF] focus:ring-1 focus:ring-[#555555] text-white placeholder-[#7A7A7A] transition-colors duration-200"
               placeholder="username@user.com"
               type="email"
             />
+            :
+            <input
+              className="mb-8 mt-2 w-full h-12 px-5 rounded-lg border border-[#404040] bg-[#232323] focus:outline-none focus:border-[#FFFFFF] focus:ring-1 focus:ring-[#555555] text-white placeholder-[#7A7A7A] transition-colors duration-200"
+              placeholder="@username"
+              type="text"
+            />
+          }
 
             <label className="text-[#AAAAAA] text-sm">Password</label>
             <input
