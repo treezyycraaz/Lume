@@ -1,58 +1,44 @@
 import React, { useEffect, useState } from "react";
 
-function Login({switchForm}) {
-  const [loaded, setLoaded] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
+function Register({switchForm}) {
+const [loaded, setLoaded] = useState(false);
 
-  useEffect(() => {
+useEffect(() => {
     // анимация загрузки особенностей
     const timeout = setTimeout(() => setLoaded(true), 100);
     return () => clearTimeout(timeout);
-  }, []);
+}, []);
 
-  return (
+return (
     <div className="flex w-full h-screen">
       {/* форма */}
-      <div className="w-1/2 flex justify-start items-center pl-20">
+    <div className="w-1/2 flex justify-start items-center pl-20">
         <div className="w-3/4 max-w-md">
-          <form className="flex flex-col justify-center items-start">
+
+        <form className="flex flex-col justify-center items-start">
             <h1 className="text-white text-3xl font-medium mb-8 tracking-tight flex">
-              Войти в&nbsp;
+              Регистрация в&nbsp;
               <p className="text-yellow-400 drop-shadow-[0_0_10px_rgba(255,255,255,0.45)]">
                 Lume
               </p>
             </h1>
 
-          {
-            isLogin
-            ?
+          
             <div className="flex">
             <label className="text-[#AAAAAA] text-sm">Email</label>
-            <div className="border-s ml-3 pl-3 border-[#363636]" />
-            <button type="button" className="text-[#AAAAAA] text-sm hover:text-yellow-400 transition-colors duration-200" onClick={() => {setIsLogin(false)}}>Войти по username</button>
             </div>
-            :
-            <div className="flex">
-            <label className="text-[#AAAAAA] text-sm">Username</label>
-            <div className="border-s ml-3 pl-3 border-[#363636]" />
-            <button type="button" className="text-[#AAAAAA] text-sm hover:text-yellow-400 transition-colors duration-200" onClick={() => {setIsLogin(true)}}>Войти по Email</button>
-            </div>
-          }
-
-          {isLogin
-            ?
             <input
               className="mb-8 mt-2 w-full h-12 px-5 rounded-lg border border-[#404040] bg-[#232323] focus:outline-none focus:border-[#FFFFFF] focus:ring-1 focus:ring-[#555555] text-white placeholder-[#7A7A7A] transition-colors duration-200"
               placeholder="username@user.com"
               type="email"
             />
-            :
+
+            <label className="text-[#AAAAAA] text-sm">Username</label>
             <input
               className="mb-8 mt-2 w-full h-12 px-5 rounded-lg border border-[#404040] bg-[#232323] focus:outline-none focus:border-[#FFFFFF] focus:ring-1 focus:ring-[#555555] text-white placeholder-[#7A7A7A] transition-colors duration-200"
               placeholder="@username"
               type="text"
             />
-          }
 
             <label className="text-[#AAAAAA] text-sm">Password</label>
             <input
@@ -62,9 +48,9 @@ function Login({switchForm}) {
             />
 
             <button className="mt-10 w-full h-12 bg-[#454545] hover:bg-[#606060] text-white font-medium rounded-lg transition duration-200 active:scale-[0.99] ease-out mb-6">
-              Продолжить
+              Создать аккаунт
             </button>
-            <button type="button" className="ml-32 text-white hover:text-[#AAAAAA] transition-colors duration-200" onClick={switchForm}>Нет аккаунта ? Создать</button>
+            <button type="button" className="ml-32 text-white hover:text-[#AAAAAA] transition-colors duration-200" onClick={switchForm}>Уже есть аккаунт ? Войти</button>
           </form>
         </div>
       </div>
@@ -106,4 +92,4 @@ function Login({switchForm}) {
   );
 }
 
-export default Login;
+export default Register;
