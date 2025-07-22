@@ -1,20 +1,21 @@
 import './App.css';
-import Register from './components/Register';
-import Login from './components/Login';
-import { useState } from 'react';
+import AppRouter from './AppRouter';
+import { useState} from 'react';
+import { useEffect } from 'react';
 
 function App() {
-  const [login, setLogin] = useState(false);
-  
+  const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsAuth(!!token);
+  }, []);
+
+
   return (
     <div className='bg-[#1A1A1A] min-h-screen'>
       <div className='flex justify-start items-center h-screen'>
-        {
-          login ?
-          <Register switchForm={() => setLogin(false)}></Register>
-          :
-          <Login switchForm={() => setLogin(true)}></Login>
-        }
+        <AppRouter isAuth={isAuth} setIsAuth={setIsAuth} />
       </div>
     </div>
   );

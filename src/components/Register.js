@@ -1,7 +1,28 @@
 import React, { useEffect, useState } from "react";
+import api from "../axios";
+import { useNavigate, Link } from "react-router-dom";
 
 function Register({switchForm}) {
 const [loaded, setLoaded] = useState(false);
+const [formData, setFormData] = useState({
+  email: "",
+  username: "",
+  password: ""
+});
+
+const navigate = useNavigate();
+
+const handleRegister = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await api.post("/auth/register", formData);
+    navigate("/login")
+  } catch (err) {
+    console.error("Ошибка регистрации:", err);
+    alert("Ошибка: " + (err.response?.data?.message || "Проверьте данные"));
+  }
+};
 
 useEffect(() => {
     // анимация загрузки особенностей
@@ -15,7 +36,7 @@ return (
     <div className="w-1/2 flex justify-start items-center pl-20">
         <div className="w-3/4 max-w-md">
 
-        <form className="flex flex-col justify-center items-start">
+        <form className="flex flex-col justify-center items-start" onSubmit={handleRegister}>
             <h1 className="text-white text-3xl font-medium mb-8 tracking-tight flex">
               Регистрация в&nbsp;
               <p className="text-yellow-400 drop-shadow-[0_0_10px_rgba(255,255,255,0.45)]">
@@ -31,6 +52,8 @@ return (
               className="mb-8 mt-2 w-full h-12 px-5 rounded-lg border border-[#404040] bg-[#232323] focus:outline-none focus:border-[#FFFFFF] focus:ring-1 focus:ring-[#555555] text-white placeholder-[#7A7A7A] transition-colors duration-200"
               placeholder="username@user.com"
               type="email"
+              value={formData.email}
+              onChange={(e) => setFormData({...formData, email: e.target.value})}
             />
 
             <label className="text-[#AAAAAA] text-sm">Username</label>
@@ -38,6 +61,8 @@ return (
               className="mb-8 mt-2 w-full h-12 px-5 rounded-lg border border-[#404040] bg-[#232323] focus:outline-none focus:border-[#FFFFFF] focus:ring-1 focus:ring-[#555555] text-white placeholder-[#7A7A7A] transition-colors duration-200"
               placeholder="@username"
               type="text"
+              value={formData.username} 
+              onChange={(e) => setFormData({...formData, username: e.target.value})}
             />
 
             <label className="text-[#AAAAAA] text-sm">Password</label>
@@ -45,12 +70,14 @@ return (
               className="mt-2 w-full h-12 px-5 rounded-lg border border-[#404040] bg-[#232323] focus:outline-none focus:border-[#FFFFFF] focus:ring-1 focus:ring-[#555555] text-white placeholder-[#7A7A7A] transition-colors duration-200"
               placeholder="******"
               type="password"
+              value={formData.password}
+              onChange={(e) => setFormData({...formData, password: e.target.value})}
             />
 
             <button className="mt-10 w-full h-12 bg-[#454545] hover:bg-[#606060] text-white font-medium rounded-lg transition duration-200 active:scale-[0.99] ease-out mb-6">
               Создать аккаунт
             </button>
-            <button type="button" className="ml-32 text-white hover:text-[#AAAAAA] transition-colors duration-200" onClick={switchForm}>Уже есть аккаунт ? Войти</button>
+            <Link className="ml-32 text-white hover:text-[#AAAAAA] transition-colors duration-200" to="/login">Уже есть аккаунт ? Войти</Link>
           </form>
         </div>
       </div>
